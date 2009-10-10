@@ -1,0 +1,3 @@
+[submodule "modules/cmdutils"]
+	path = modules/cmdutils
+	url = git@melon:/git/pub/perl/cmdutils.git
