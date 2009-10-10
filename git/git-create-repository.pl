@@ -33,8 +33,7 @@ sub Path::Class::Entity::is_special_file_name ($) {
   }
 } # is_special_file_name
 
-#my $repos_d = dir('/tmp')->absolute;
-my $repos_d = dir('/git')->absolute;
+my $repos_d;
 my $template_d = file(__FILE__)->dir->subdir('template')->absolute;
 my $tmp_d = dir(tempdir)->absolute;
 
@@ -42,8 +41,16 @@ my $repo_category = shift;
 my $repo_name = shift;
 die "Usage: perl $0 repository-category repository-name\n"
     unless $repo_category and $repo_name;
-my $repo_d = $repos_d->subdir($repo_category)->subdir("$repo_name.git");
 
+if ($repo_category eq 'pub' or $repo_category eq 'melon') {
+  $repos_d = dir('/git')->absolute;
+} elsif ($repo_category eq 'test') {
+  $repos_d = dir('/tmp')->absolute;
+} else {
+  die "$0: Category $repo_category is not defined\n";
+}
+
+my $repo_d = $repos_d->subdir($repo_category)->subdir("$repo_name.git");
 if (-d $repo_d) {
   die "$0: $repo_d: There is already a directory\n";
 }
@@ -71,4 +78,4 @@ x qw/git push origin master/;
 x qw/chown git.git -R/, $repo_d;
 
 printf STDERR "$0: Created git repository %s\n", $repo_d->stringify;
-
+printf STDERR "Next step: \$ git clone git\@melon:%s\n", $repo_d->stringify;
