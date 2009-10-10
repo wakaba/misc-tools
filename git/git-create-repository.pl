@@ -39,12 +39,13 @@ my $tmp_d = dir(tempdir)->absolute;
 
 my $repo_category = shift;
 my $repo_name = shift;
+undef $repo_name unless $repo_name =~ /\A[\w-]+\z/;
 die "Usage: perl $0 repository-category repository-name\n"
     unless $repo_category and $repo_name;
 
-if ($repo_category eq 'pub' or $repo_category eq 'melon') {
+if ($repo_category =~ m[\A(?:pub|melon)(?:/[\w-]+)?\z]) {
   $repos_d = dir('/git')->absolute;
-} elsif ($repo_category eq 'test') {
+} elsif ($repo_category =~ m[\Atest(?:/[\w-]+)?\z]) {
   $repos_d = dir('/tmp')->absolute;
 } else {
   die "$0: Category $repo_category is not defined\n";
