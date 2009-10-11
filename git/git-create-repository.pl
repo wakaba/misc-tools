@@ -12,7 +12,7 @@ my $template_d = file (__FILE__)->dir->subdir ('template')->absolute;
 my $tmp_d = dir (tempdir)->absolute;
 
 my $repo_category = shift;
-my $repo_name = shift;
+my $repo_name = shift || '';
 undef $repo_name unless $repo_name =~ /\A[\w-]+\z/;
 die "Usage: perl $0 repository-category repository-name\n"
     unless $repo_category and $repo_name;
@@ -47,11 +47,12 @@ while (my $f = $template_d->next) {
 }
 
 x qw/git add ./;
-x qw/git commit -m/, 'New repository';
+x qw/git commit -m/, 'New repository',
+    '--author', 'git-create-repository <cvs@suika.fam.cx>';
 x qw/git push origin master/;
 
 $repo_d->v_chdir;
-x qw{chmod -x hooks/*.sample};
+x q{chmod -x hooks/*.sample};
 if ($repo_category =~ /^(?:pub|test)/) {
   x qw{git --bare update-server-info};
   x qw{mv hooks/post-update.sample hooks/post-update};
