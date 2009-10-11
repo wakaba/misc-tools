@@ -50,6 +50,13 @@ x qw/git add ./;
 x qw/git commit -m/, 'New repository';
 x qw/git push origin master/;
 
+$repo_d->v_chdir;
+if ($repo_category =~ /^(?:pub|test)/) {
+  x qw{git --bare update-server-info};
+  x qw{mv hooks/post-update.sample hooks/post-update};
+  x qw{chmod u+x hooks/post-update};
+}
+
 x qw/chown git.git -R/, $repo_d;
 
 printf STDERR "$0: Created git repository %s\n", $repo_d->stringify;
