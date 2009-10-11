@@ -64,6 +64,7 @@ my $tmp_cvs2git_blob_f = $tmp_cvs2git_d->file ('git-blob.dat');
 my $tmp_cvs2git_dump_f = $tmp_cvs2git_d->file ('git-dump.dat');
 x join (' ', map { quotemeta } 'cat', $tmp_cvs2git_blob_f->stringify, $tmp_cvs2git_dump_f->stringify) .
     ' | git fast-import';
+x qw/git checkout/;
 
 my $template_d = $root_d->subdir ('template');
 while (my $f = $template_d->next) {
@@ -74,6 +75,8 @@ while (my $f = $template_d->next) {
 x qw/git add ./;
 x qw/git commit -m/, 'Copied files from template',
     '--author', 'git-import-cvs-repository <cvs@suika.fam.cx>';
+
+x qw/git tag cvs2git/;
 
 x qw[git clone --bare .], $repo_d;
 
