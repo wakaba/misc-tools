@@ -66,6 +66,8 @@ x join (' ', map { quotemeta } 'cat', $tmp_cvs2git_blob_f->stringify, $tmp_cvs2g
     ' | git fast-import';
 x qw/git checkout/;
 
+x qw/git tag cvs2git/;
+
 my $template_d = $root_d->subdir ('template');
 while (my $f = $template_d->next) {
   next if $f->is_special_file_name;
@@ -75,8 +77,6 @@ while (my $f = $template_d->next) {
 x qw/git add ./;
 x qw/git commit -m/, 'Copied files from template',
     '--author', 'git-import-cvs-repository <cvs@suika.fam.cx>';
-
-x qw/git tag cvs2git/;
 
 x qw[git clone --bare .], $repo_d;
 
