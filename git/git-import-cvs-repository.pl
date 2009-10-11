@@ -35,8 +35,8 @@ my $tmp_d = dir (tempdir)->absolute;
 my $tmp_cvs_top_d = $tmp_d->subdir ('cvs');
 $tmp_cvs_top_d->v_mkpath;
 
-x qw[rsync -avz], q[wakaba@suika:/home/cvs/] . $cvs_module, $tmp_cvs_top_d;
 x qw[rsync -avz wakaba@suika:/home/cvs/CVSROOT], $tmp_cvs_top_d;
+x qw[rsync -avz], q[wakaba@suika:/home/cvs/] . $cvs_module, $tmp_cvs_top_d;
 
 my $options_f = $root_d->file ('cvs2git.options.template');
 my $tmp_options_f = $tmp_d->file ('cvs2git.options');
