@@ -51,6 +51,7 @@ x qw/git commit -m/, 'New repository';
 x qw/git push origin master/;
 
 $repo_d->v_chdir;
+x qw{chmod -x hooks/*.sample};
 if ($repo_category =~ /^(?:pub|test)/) {
   x qw{git --bare update-server-info};
   x qw{mv hooks/post-update.sample hooks/post-update};
