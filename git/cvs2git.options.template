@@ -190,8 +190,11 @@ ctx.cvs_author_decoder = CVSTextDecoder(
     )
 ctx.cvs_log_decoder = CVSTextDecoder(
     [
+        'iso-2022-jp',
+        'euc-jp',
+        'shift_jis',
         #'latin1',
-        #'utf8',
+        'utf8',
         'ascii',
         ],
     #fallback_encoding='ascii'
