@@ -14,5 +14,6 @@ $git_d->v_chdir;
 
 $ENV{GIT_DIR} = '.git';
 x qw/git pull/;
+x qw/git submodule update --init/;
 
 warn "\n";
