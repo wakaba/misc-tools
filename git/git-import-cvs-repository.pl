@@ -6,14 +6,23 @@ use File::Temp qw/tempdir/;
 use lib file (__FILE__)->dir->parent->subdir ('modules')->subdir ('cmdutils')->subdir ('lib')->stringify;
 use Command qw/x/;
 use Extras::Path::Class;
+use Getopt::Long;
 
 my $cvs2git = 'cvs2git';
+
+my @exclude_path;
+
+GetOptions (
+  'exclude-path=s' => sub {
+    push @exclude_path, $_[1];
+  },
+) or die "Usage: perl $0 [options] cvs-module repository-category repository-name\n";
 
 my $cvs_module = shift;
 my $repo_category = shift;
 my $repo_name = shift || '';
 undef $repo_name unless $repo_name =~ /\A[\w-]+\z/;
-die "Usage: perl $0 cvs-module repository-category repository-name\n"
+die "Usage: perl $0 [options] cvs-module repository-category repository-name\n"
     unless $cvs_module and $repo_category and $repo_name;
 
 my $repos_d;
@@ -35,8 +44,15 @@ my $tmp_d = dir (tempdir)->absolute;
 my $tmp_cvs_top_d = $tmp_d->subdir ('cvs');
 $tmp_cvs_top_d->v_mkpath;
 
+my @rsync_option;
+if (@exclude_path) {
+  my $prefix = '/' . [split m[/], $cvs_module]->[-1] . '/';
+  @rsync_option = map { ('--exclude' => $prefix . $_) } @exclude_path;
+}
+
 x qw[rsync -avz wakaba@suika:/home/cvs/CVSROOT], $tmp_cvs_top_d;
-x qw[rsync -avz], q[wakaba@suika:/home/cvs/] . $cvs_module, $tmp_cvs_top_d;
+x qw[rsync -avz], @rsync_option,
+    q[wakaba@suika:/home/cvs/] . $cvs_module, $tmp_cvs_top_d;
 
 my $options_f = $root_d->file ('cvs2git.options.template');
 my $tmp_options_f = $tmp_d->file ('cvs2git.options');
