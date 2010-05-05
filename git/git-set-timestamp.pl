@@ -25,7 +25,7 @@ $repository_d->recurse (callback => sub {
   return if $diff =~ /\w/;
 
   my $current_timestamp = $f->stat->mtime or return;
-  my $git_timestamp = 0+`git log -1 --format=%at $quoted` or return;
+  my $git_timestamp = (`git log -1 --format=%at $quoted` || 0)+0 or return;
   
   my $new_timestamp = $git_timestamp;
   $new_timestamp = $current_timestamp if $current_timestamp < $git_timestamp;
