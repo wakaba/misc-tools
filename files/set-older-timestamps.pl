@@ -32,5 +32,6 @@ while (<>) {
         $f->relative,
         scalar localtime $current_time,
         scalar localtime $new_time;
+    utime $new_time, $new_time, $f;
   }
 }
