@@ -12,20 +12,22 @@ my $command = join ' ', map { quotemeta }
     map { my $a = $_; $a =~ s/\n/ /g; quotemeta $a }
         qw{perl -MPath::Class -e},
         q{
-          dir($here = shift)->recurse(callback => sub {
+          my $here = shift;
+          dir($here)->recurse(callback => sub {
             return unless -f $_[0];
-            print STDOUT $_[0]->stat->mtime, "\t", $_[0]->relative($here), "\n";
+            my ($sha1) = `sha1sum ${\quotemeta $_[0]}` =~ /^(\S+)/;
+            print STDOUT $_[0]->stat->mtime, "\t", $sha1, "\t", $_[0]->relative($here), "\n";
           });
         },
         $remote_path;
 
 my %list;
 for (split /\n/, `$command`) {
-  my ($mtime, $path) = split /\s+/, $_;
+  my ($mtime, $sha1, $path) = split /\s+/, $_;
   next if $path =~ /$exclude_pattern/o;
-  $list{$path} = $mtime;
+  $list{$path} = [$mtime, $sha1];
 }
 
 for (sort { $a cmp $b } keys %list) {
-  printf "%s\t%s\n", $list{$_}, $_;
+  printf "%s\t%s\t%s\n", $list{$_}->[0], $list{$_}->[1], $_;
 }
