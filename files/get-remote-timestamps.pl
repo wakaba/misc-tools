@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Path::Class;
 
-my $remote_path = q[/home/httpd/html/admin];
+my $remote_path = shift or die "Usage: $0 remote-path\n";
 my $remote_host = q[suika];
 my $exclude_pattern = qr[(?>^|/)(?>CVS|\.\.?|.*~)(?>$|/)];
 
