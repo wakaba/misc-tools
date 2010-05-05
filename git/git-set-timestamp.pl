@@ -2,9 +2,7 @@
 use strict;
 use warnings;
 use Path::Class;
-use File::Temp qw/tempdir/;
 use lib file (__FILE__)->dir->parent->subdir ('modules')->subdir ('cmdutils')->subdir ('lib')->stringify;
-use Command qw/x/;
 use Extras::Path::Class;
 
 my $repository_d = dir (shift);
