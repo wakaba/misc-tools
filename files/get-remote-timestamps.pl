@@ -2,8 +2,6 @@
 use strict;
 use warnings;
 use Path::Class;
-use lib file (__FILE__)->dir->parent->subdir ('modules')->subdir ('cmdutils')->subdir ('lib')->stringify;
-use Command qw/x/;
 
 my $remote_path = q[/home/httpd/html/admin];
 my $remote_host = q[suika];
