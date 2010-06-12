@@ -11,11 +11,13 @@ use Getopt::Long;
 my $cvs2git = 'cvs2git';
 
 my @exclude_path;
+my $from_melon_archive;
 
 GetOptions (
   'exclude-path=s' => sub {
     push @exclude_path, $_[1];
   },
+  'from-melon-archive' => \$from_melon_archive,
 ) or die "Usage: perl $0 [options] cvs-module repository-category repository-name\n";
 
 my $cvs_module = shift;
@@ -51,8 +53,12 @@ if (@exclude_path) {
 }
 
 x qw[rsync -avz wakaba@suika:/home/cvs/CVSROOT], $tmp_cvs_top_d;
-x qw[rsync -avz], @rsync_option,
-    q[wakaba@suika:/home/cvs/] . $cvs_module, $tmp_cvs_top_d;
+if ($from_melon_archive) {
+  x qw[cp -R], q[/data1/cvs/archive/] . $cvs_module, $tmp_cvs_top_d;
+} else {
+  x qw[rsync -avz], @rsync_option,
+      q[wakaba@suika:/home/cvs/] . $cvs_module, $tmp_cvs_top_d;
+}
 
 my $options_f = $root_d->file ('cvs2git.options.template');
 my $tmp_options_f = $tmp_d->file ('cvs2git.options');
