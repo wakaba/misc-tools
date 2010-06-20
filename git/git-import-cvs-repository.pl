@@ -12,8 +12,10 @@ my $cvs2git = 'cvs2git';
 
 my @exclude_path;
 my $from_melon_archive;
+my $container_directory_name;
 
 GetOptions (
+  'container-directory-name=s' => \$container_directory_name,
   'exclude-path=s' => sub {
     push @exclude_path, $_[1];
   },
@@ -53,18 +55,26 @@ if (@exclude_path) {
 }
 
 x qw[rsync -avz wakaba@suika:/home/cvs/CVSROOT], $tmp_cvs_top_d;
+
+my $parent_d = $tmp_cvs_top_d;
+if (defined $container_directory_name) {
+  $parent_d = $parent_d->subdir ($container_directory_name);
+  $parent_d->v_mkpath;
+}
+
 if ($from_melon_archive) {
-  x qw[cp -R], q[/data1/cvs/archive/] . $cvs_module, $tmp_cvs_top_d;
+  x qw[cp -R], q[/data1/cvs/archive/] . $cvs_module, $parent_d;
 } else {
   x qw[rsync -avz], @rsync_option,
-      q[wakaba@suika:/home/cvs/] . $cvs_module, $tmp_cvs_top_d;
+      q[wakaba@suika:/home/cvs/] . $cvs_module, $parent_d;
 }
 
 my $options_f = $root_d->file ('cvs2git.options.template');
 my $tmp_options_f = $tmp_d->file ('cvs2git.options');
 
 my $cvs_lastname = [split m[/], $cvs_module]->[-1];
-my $tmp_cvs_repo_d = $tmp_cvs_top_d->subdir ($cvs_lastname);
+my $tmp_cvs_repo_d = $tmp_cvs_top_d->subdir
+    ($container_directory_name // $cvs_lastname);
 my $tmp_cvs2git_d = $tmp_d->subdir ('cvs2git');
 $tmp_cvs2git_d->v_mkpath;
 
