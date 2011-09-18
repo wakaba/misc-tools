@@ -11,7 +11,9 @@ use Getopt::Long;
 my $cvs2git = 'cvs2git';
 
 my @exclude_path;
+my @exclude_v_file;
 my $from_melon_archive;
+my $from_suika_wakaba;
 my $container_directory_name;
 
 GetOptions (
@@ -19,7 +21,11 @@ GetOptions (
   'exclude-path=s' => sub {
     push @exclude_path, $_[1];
   },
+  'exclude-v-path=s' => sub {
+    push @exclude_v_file, $_[1];
+  },
   'from-melon-archive' => \$from_melon_archive,
+  'from-suika-wakaba' => \$from_suika_wakaba,
 ) or die "Usage: perl $0 [options] cvs-module repository-category repository-name\n";
 
 my $cvs_module = shift;
@@ -64,6 +70,9 @@ if (defined $container_directory_name) {
 
 if ($from_melon_archive) {
   x qw[cp -R], q[/data1/cvs/archive/] . $cvs_module, $parent_d;
+} elsif ($from_suika_wakaba) {
+  x qw[rsync -avz], @rsync_option,
+      q[wakaba@suika:/home/wakaba/pub/cvs/] . $cvs_module, $parent_d;
 } else {
   x qw[rsync -avz], @rsync_option,
       q[wakaba@suika:/home/cvs/] . $cvs_module, $parent_d;
@@ -84,6 +93,11 @@ $options =~ s/\@\@\@TMPDIR\@\@\@/$tmp_cvs2git_d/g;
 my $file = $tmp_options_f->openw or die "$0: $tmp_options_f: $!\n";
 print $file $options;
 close $file;
+
+for (@exclude_v_file) {
+  my $f = $tmp_cvs_repo_d->file ($_);
+  $f->remove if -f $f;
+}
 
 x $cvs2git, '--options', $tmp_options_f;
 
