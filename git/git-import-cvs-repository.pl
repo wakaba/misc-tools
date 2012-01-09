@@ -96,6 +96,7 @@ close $file;
 
 for (@exclude_v_file) {
   my $f = $tmp_cvs_repo_d->file ($_);
+  print STDERR "Delete |$f| if exists\n";
   $f->remove if -f $f;
 }
 
