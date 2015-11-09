@@ -22,7 +22,7 @@ deployment:
       - cp config/python/setup.py ./
       - cp Procfile.py Procfile
       - git add requirements.txt Procfile setup.py
-      - git add -f perl plackup local/perl-*/pm local/config/perl
+      - git add -f perl plackup local/perl-5.*/pm local/config/perl
       - git commit -m heroku
       - git push git@heroku.com:misc-py.git +`git rev-parse HEAD`:refs/heads/master
 
