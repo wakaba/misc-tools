@@ -18,7 +18,7 @@ deployment:
       - make create-commit-for-heroku
       - git push git@heroku.com:misc-tools.git +`git rev-parse HEAD`:refs/heads/master
 
-      - cp config/python/requirements.*.txt > requirements.txt
+      - cat config/python/requirements.*.txt > requirements.txt
       - cp Procfile.py Procfile
       - git add requirements.txt Procfile
       - git commit -m heroku
