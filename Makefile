@@ -20,7 +20,7 @@ else
 endif
 	$(MAKE) pmbp-install
 ifdef PMBP_HEROKU_BUILDPACK
-	$(MAKE) deps-harusame-deps deps-hoge
+	$(MAKE) deps-harusame-deps
 else
 	$(MAKE) deps-harusame-install
 endif
@@ -49,9 +49,6 @@ deps-harusame-install:
 
 deps-harusame-deps:
 	cd local/harusame && $(MAKE) pmbp-install
-
-deps-hoge:
-	python -v
 
 create-commit-for-heroku:
 	git remote rm origin
