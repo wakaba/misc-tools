@@ -44,6 +44,25 @@ return sub {
         warn $_[0];
         return $app->send_error (500);
       });
+    } elsif (@$path == 1 and $path->[0] eq 'anolis') {
+      return $app->send_error (405) unless $app->http->request_method eq 'POST';
+      my $cmd = Promised::Command->new ([
+        'anolis',
+      ]);
+      $cmd->wd ($RootPath);
+      $cmd->stdin ($app->http->request_body_as_ref // \'');
+      $cmd->stdout (\my $stdout);
+      return $cmd->run->then (sub {
+        return $cmd->wait;
+      })->then (sub {
+        $app->http->set_status (400, reason_phrase => $_[0])
+            unless $_[0]->exit_code == 0;
+        $app->http->send_response_body_as_ref (\$stdout);
+        $app->http->close_response_body;
+      })->catch (sub {
+        warn $_[0];
+        return $app->send_error (500);
+      });
     }
 
     return $app->send_error (404);
