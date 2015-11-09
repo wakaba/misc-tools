@@ -5,7 +5,7 @@ dependencies:
     - make deps
 test:
   override:
-    - make test
+    #- make test
     - ./plackup -p 5114 -t Twiggy::Prefork bin/server.psgi :
         background: true
     - sleep 10

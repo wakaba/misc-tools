@@ -1,4 +1,4 @@
 from setuptools import setup;
-import subprocess;
+#import subprocess;
 setup (name='misc',version='1.0.0');
-subprocess.call (["make", "pmbp-install"]);
+#subprocess.call (["make", "pmbp-install"]);
