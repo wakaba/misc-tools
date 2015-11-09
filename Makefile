@@ -51,7 +51,7 @@ deps-harusame-deps:
 	cd local/harusame && $(MAKE) pmbp-install
 
 deps-hoge:
-	easy_install html5lib
+	pip install html5lib
 
 create-commit-for-heroku:
 	git remote rm origin
