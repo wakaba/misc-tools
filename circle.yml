@@ -1,0 +1,24 @@
+dependencies:
+  override:
+    - git config --global user.email "temp@circleci.test"
+    - git config --global user.name "CircleCI"
+    - make deps
+test:
+  override:
+    - make test
+    - ./plackup -p 5114 -t Twiggy::Prefork bin/server.psgi :
+        background: true
+    - sleep 10
+    - curl http://localhost:5114
+deployment:
+  heroku:
+    branch: master
+    commands:
+      - "[[ ! -s \"$(git rev-parse --git-dir)/shallow\" ]] || git fetch --unshallow"
+      - make create-commit-for-heroku
+      - git push git@heroku.com:misc-tools.git +`git rev-parse HEAD`:refs/heads/master
+
+  nightly:
+    branch: nightly
+    commands:
+      - curl -f -s -S --request POST --header "Authorization:token $GITHUB_ACCESS_TOKEN" --header "Content-Type:application/json" --data-binary "{\"base\":\"nightly\",\"head\":\"`git rev-parse HEAD`\",\"commit_message\":\"auto-merge nightly into nightly\"}" "https://api.github.com/repos/wakaba/testresultlist/merges"
