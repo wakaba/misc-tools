@@ -58,7 +58,7 @@ create-commit-for-heroku:
 	#git rm -r t_deps/modules
 	git rm .gitmodules
 	git rm modules/* --cached
-	rm -fr local/harusame/deps/pmtar/.git
+	rm -fr local/harusame/.git local/harusame/deps/pmtar/.git
 	rm -fr local/harusame/deps/pmpp
 	rm -fr local/harusame/t local/harusame/t_deps
 	rm -fr local/harusame/modules/*/.git
