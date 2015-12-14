@@ -6,6 +6,8 @@ use Wanage::URL;
 use Wanage::HTTP;
 use Warabe::App;
 use Promised::Command;
+use JSON::PS;
+use Data::Dumper;
 
 $ENV{LANG} = 'C';
 $ENV{TZ} = 'UTC';
@@ -63,6 +65,22 @@ return sub {
         warn $_[0];
         return $app->send_error (500);
       });
+    } elsif (@$path == 1 and $path->[0] eq 'json2perl') {
+      return $app->send_error (405) unless $app->http->request_method eq 'POST';
+      my $ref = $app->http->request_body_as_ref // \'';
+      my $perl = json_bytes2perl $$ref;
+      if (not defined $perl and not $$ref =~ /^\s*null\s*$/) {
+        return $app->send_error (400, reason_phrase => 'Bad input');
+      } else {
+        local $Data::Dumper::Sortkeys = 1;
+        my $dumped = Dumper $perl;
+        $dumped =~ s/^\$VAR1\s*=\s*//;
+        $dumped =~ s/\s*;\s*$//;
+        $app->http->set_response_header
+            ('Content-Type' => 'text/perl; charset=utf-8');
+        $app->http->send_response_body_as_text ($dumped);
+        return $app->http->close_response_body;
+      }
     }
 
     return $app->send_error (404);

@@ -34,3 +34,6 @@
 	path = modules/promise
 	url = git://github.com/wakaba/perl-promise
 	track = master
+[submodule "modules/json-ps"]
+	path = modules/json-ps
+	url = git://github.com/wakaba/perl-json-ps
