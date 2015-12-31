@@ -20,9 +20,9 @@ else
 endif
 	$(MAKE) pmbp-install
 ifdef PMBP_HEROKU_BUILDPACK
-	$(MAKE) deps-harusame-deps
+	$(MAKE) deps-harusame-deps deps-webhacc-deps
 else
-	$(MAKE) deps-harusame-install
+	$(MAKE) deps-harusame-install deps-webhacc-install
 endif
 
 git-submodules:
@@ -46,9 +46,14 @@ pmbp-install: pmbp-upgrade
 deps-harusame-install:
 	perl local/bin/pmbp.pl $(PMBP_OPTIONS) \
 	    --install-perl-app git://github.com/wakaba/harusame
-
 deps-harusame-deps:
 	cd local/harusame && $(MAKE) pmbp-install
+
+deps-webhacc-install:
+	perl local/bin/pmbp.pl $(PMBP_OPTIONS) \
+	    --install-perl-app git://github.com/manakai/webhacc-cli
+deps-webhacc-deps:
+	cd local/webhacc-cli && $(MAKE) pmbp-install
 
 create-commit-for-heroku:
 	git remote rm origin
@@ -62,7 +67,11 @@ create-commit-for-heroku:
 	rm -fr local/harusame/deps/pmpp
 	rm -fr local/harusame/t local/harusame/t_deps
 	rm -fr local/harusame/modules/*/.git
-	git add -f modules/*/* local/harusame
+	rm -fr local/webhacc-cli/.git local/webhacc-cli/deps/pmtar/.git
+	rm -fr local/webhacc-cli/deps/pmpp
+	rm -fr local/webhacc-cli/t local/webhacc-cli/t_deps
+	rm -fr local/webhacc-cli/modules/*/.git
+	git add -f modules/*/* local/harusame local/webhacc-cli
 	git commit -m "for heroku"
 
 ## ------ Tests ------

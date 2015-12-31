@@ -46,6 +46,47 @@ return sub {
         warn $_[0];
         return $app->send_error (500);
       });
+    } elsif (@$path == 1 and
+             ($path->[0] eq 'webhacc' or
+              $path->[0] eq 'webhacc.json')) {
+      return $app->send_error (405) unless $app->http->request_method eq 'POST';
+      my @args;
+      push @args, '--json' if $path->[0] eq 'webhacc.json';
+      my $url = $app->text_param ('url');
+      push @args, $url if defined $url and length $url;
+      for (qw(check-error-response dtd-validation image-viewable
+              noscript show-dump show-inner-html xml-external-entities
+              help version specs)) {
+        push @args, "--$_" if $app->bare_param ($_);
+      }
+      for (qw(content-type input)) {
+        my $v = $app->text_param ($_);
+        push @args, "--$_" => $v if defined $v;
+      }
+      my $cmd = Promised::Command->new ([
+        $RootPath->child ('local/webhacc-cli/webhacc'), @args
+      ]);
+      $cmd->wd ($RootPath->child ('local/webhacc-cli'));
+      $cmd->stdin ($app->http->request_body_as_ref // \'');
+      $cmd->stdout (\my $stdout);
+      return $cmd->run->then (sub {
+        return $cmd->wait;
+      })->then (sub {
+        $app->http->set_status (400, reason_phrase => $_[0])
+            unless $_[0]->exit_code == 0 or $_[0]->exit_code == 1;
+        if ($path->[0] eq 'webhacc.json') {
+          $app->http->add_response_header
+              ('Content-Type' => 'application/json; charset=utf-8');
+        } else {
+          $app->http->add_response_header
+              ('Content-Type' => 'text/plain; charset=utf-8');
+        }
+        $app->http->send_response_body_as_ref (\$stdout);
+        $app->http->close_response_body;
+      })->catch (sub {
+        warn $_[0];
+        return $app->send_error (500);
+      });
     } elsif (@$path == 1 and $path->[0] eq 'anolis') {
       return $app->send_error (405) unless $app->http->request_method eq 'POST';
       my $cmd = Promised::Command->new ([
