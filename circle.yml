@@ -7,6 +7,6 @@ test:
 
 deployment:
   staging:
-    branch: staging
+    branch: gaa/manakai/data-chars
     commands:
       - curl --header "Authorization:Basic $GAA_AUTH" -X POST --form gh_user=manakai --form gh_repo=data-chars $GAA_URL
