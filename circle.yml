@@ -1,0 +1,12 @@
+dependencies:
+  override:
+    - true
+test:
+  override:
+    - true
+
+deployment:
+  staging:
+    branch: staging
+    commands:
+      - curl --header "Authorization:Basic $GAA_AUTH" -X POST --form gh_user=manakai --form gh_repo=data-chars $GAA_URL
