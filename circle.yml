@@ -1,9 +1,9 @@
 dependencies:
   override:
-    - true
+    - echo
 test:
   override:
-    - true
+    - echo
 
 deployment:
   staging:
