@@ -1,7 +1,7 @@
 {
    "dependencies" : {
       "override" : [
-         "make deps"
+         "make test-deps"
       ]
    },
    "deployment" : {
