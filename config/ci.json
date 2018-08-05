@@ -22,7 +22,7 @@
       "git add requirements.txt Procfile",
       "git add -f local/perl-5.*/pm",
       "git commit -m heroku",
-      "git push git@heroku.com:misc-py.git +`git rev-parse HEAD`:refs/heads/master"
+      "# git push git@heroku.com:misc-py.git +`git rev-parse HEAD`:refs/heads/master"
     ]
   }
 }

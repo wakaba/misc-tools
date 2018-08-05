@@ -97,7 +97,7 @@
             },
             {
                "deploy" : {
-                  "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == \u0022master\u0022 ]; then\u000Atrue\u000Agit push git@heroku.com:misc-py.git \u002B`git rev-parse HEAD`:refs/heads/master\u000Afi"
+                  "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == \u0022master\u0022 ]; then\u000Atrue\u000A# git push git@heroku.com:misc-py.git \u002B`git rev-parse HEAD`:refs/heads/master\u000Afi"
                }
             },
             {
