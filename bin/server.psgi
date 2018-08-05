@@ -103,6 +103,7 @@ return sub {
           $app->http->send_response_body_as_ref (\$stdout);
         } else {
           $app->http->set_status (400, reason_phrase => $_[0]);
+          $app->http->send_response_body_as_ref (\"$_[0]");
           $app->http->send_response_body_as_ref (\$stdout);
           $app->http->send_response_body_as_ref (\$stderr);
         }

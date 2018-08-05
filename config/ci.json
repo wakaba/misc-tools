@@ -18,6 +18,7 @@
       "git push git@heroku.com:misc-tools.git +`git rev-parse HEAD`:refs/heads/master",
 
       "cat config/python/requirements.*.txt > requirements.txt",
+      "echo python-2.6 > runtime.txt",
       "cp Procfile.py Procfile",
       "git add requirements.txt Procfile",
       "git add -f local/perl-5.*/pm",

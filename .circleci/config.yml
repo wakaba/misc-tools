@@ -77,6 +77,11 @@
             },
             {
                "deploy" : {
+                  "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == \u0022master\u0022 ]; then\u000Atrue\u000Aecho python-2.6 > runtime.txt\u000Afi"
+               }
+            },
+            {
+               "deploy" : {
                   "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == \u0022master\u0022 ]; then\u000Atrue\u000Acp Procfile.py Procfile\u000Afi"
                }
             },
