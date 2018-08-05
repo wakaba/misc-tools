@@ -57,7 +57,6 @@ deps-webhacc-deps:
 	cd local/webhacc-cli && $(MAKE) pmbp-install
 
 deps-heroku-py: pmbp-install
-	perl -i -n -e "s/import htmlserializer/import HTMLSerializer/g; $$_" "/app/.heroku/python/lib/python2.7/site-packages/anolislib/generator.py"
 
 create-commit-for-heroku:
 	git remote rm origin
