@@ -95,12 +95,17 @@ return sub {
       $cmd->wd ($RootPath);
       $cmd->stdin ($app->http->request_body_as_ref // \'');
       $cmd->stdout (\my $stdout);
+      $cmd->stderr (\my $stderr);
       return $cmd->run->then (sub {
         return $cmd->wait;
       })->then (sub {
-        $app->http->set_status (400, reason_phrase => $_[0])
-            unless $_[0]->exit_code == 0;
-        $app->http->send_response_body_as_ref (\$stdout);
+        if ($_[0]->exit_code == 0) {
+          $app->http->send_response_body_as_ref (\$stdout);
+        } else {
+          $app->http->set_status (400, reason_phrase => $_[0]);
+          $app->http->send_response_body_as_ref (\$stdout);
+          $app->http->send_response_body_as_ref (\$stderr);
+        }
         $app->http->close_response_body;
       })->catch (sub {
         warn $_[0];
