@@ -26,6 +26,8 @@ else
 	$(MAKE) deps-harusame-install deps-webhacc-install
 endif
 
+deps-docker-py: pmbp-install
+
 git-submodules:
 	$(GIT) submodule update --init
 
@@ -79,9 +81,8 @@ create-commit-for-heroku:
 
 create-commit-for-heroku-py:
 	cat config/python/requirements.*.txt > requirements.txt
-	cp Procfile.py Procfile
-	git add requirements.txt Procfile
-	git add -f local/perl-5.*/pm
+	cp heroku.yml.py heroku.yml
+	git add requirements.txt heroku.yml
 	git commit -m "for heroku2"
 
 ## ------ Tests ------
