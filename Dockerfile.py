@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch
 
 ADD Makefile /app/
 ADD requirements.txt.py /app/requirements.txt
