@@ -1,4 +1,4 @@
-FROM debian:wheezy
+FROM debian:jessie
 
 ADD Makefile /app/
 ADD requirements.txt.py /app/requirements.txt
@@ -10,7 +10,7 @@ ADD deps/ /app/deps/
 
 RUN cd /app && \
     apt-get update && \
-    apt-get install -y make perl curl wget libssl-dev && \
+    apt-get install -y make perl curl wget && \
     make deps-docker-py PMBP_OPTIONS="--execute-system-package-installer --dump-info-file-before-die" && \
     pip install -r requirements.txt && \
     rm -rf /var/lib/apt/lists/* deps
