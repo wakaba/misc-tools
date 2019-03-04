@@ -1,7 +1,7 @@
 FROM quay.io/wakaba/docker-perl-app-base
 
 ADD Makefile /app/
-ADD requirements.txt /app/
+ADD requirements.txt.py /app/requirements.txt
 ADD config/perl/ /app/config/perl/
 ADD bin/ /app/bin/
 ADD lib/ /app/lib/
