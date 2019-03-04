@@ -27,6 +27,7 @@ else
 endif
 
 deps-docker-py: pmbp-install
+	apt-get install -y python-pip mercurial
 
 git-submodules:
 	$(GIT) submodule update --init
