@@ -81,7 +81,7 @@ create-commit-for-heroku:
 	git commit -m "for heroku"
 
 create-commit-for-heroku-py:
-	apt-get install -y mercurial
+	sudo apt-get install -y mercurial
 	hg clone https://bitbucket.org/ms2ger/anolis
 	cat config/python/requirements.*.txt > requirements.txt.py
 	echo "/app/anolis" >> requirements.txt.py
