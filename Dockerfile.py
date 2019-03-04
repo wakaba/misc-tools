@@ -13,4 +13,4 @@ RUN cd /app && \
     pip install -r requirements.txt && \
     rm -rf /var/lib/apt/lists/* deps
 
-CMD ./plackup -s Twiggy::Prefork -p $PORT bin/server.psgi
+CMD cd /app && ./plackup -s Twiggy::Prefork -p $PORT bin/server.psgi
