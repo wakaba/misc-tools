@@ -84,7 +84,8 @@ create-commit-for-heroku-py:
 	wget -O anolis.zip https://bitbucket.org/ms2ger/anolis/get/bb7e0d4b8463.zip
 	unzip anolis.zip
 	cat config/python/requirements.*.txt > requirements.txt.py
-	echo "/app/ms2ger-anolis-bb7e0d4b8463" >> requirements.txt.py
+	mv ms2ger-anolis-bb7e0d4b8463 anolis
+	echo "/app/anolis" >> requirements.txt.py
 	cp heroku.yml.py heroku.yml
 	git add requirements.txt.py heroku.yml
 	git rm -fr Procfile local
