@@ -87,7 +87,7 @@ create-commit-for-heroku-py:
 	mv ms2ger-anolis-bb7e0d4b8463 anolis
 	echo "/app/anolis" >> requirements.txt.py
 	cp heroku.yml.py heroku.yml
-	git add requirements.txt.py heroku.yml
+	git add requirements.txt.py heroku.yml anolis
 	git rm -fr Procfile local
 	git commit -m "for heroku2"
 
