@@ -9,6 +9,8 @@ ADD modules/ /app/modules/
 ADD deps/ /app/deps/
 
 RUN cd /app && \
+    apt-get update && \
+    apt-get install -y make perl && \
     make deps-docker-py PMBP_OPTIONS="--execute-system-package-installer --dump-info-file-before-die" && \
     pip install -r requirements.txt && \
     rm -rf /var/lib/apt/lists/* deps
