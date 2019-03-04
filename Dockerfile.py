@@ -1,4 +1,4 @@
-FROM quay.io/wakaba/docker-perl-app-base
+FROM debian:wheezy
 
 ADD Makefile /app/
 ADD requirements.txt.py /app/requirements.txt

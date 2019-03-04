@@ -1,4 +1,4 @@
 lxml
 cssselect
-#htm5lib
+htm5lib
 hg+http://bitbucket.org/ms2ger/anolis
