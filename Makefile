@@ -27,7 +27,6 @@ else
 endif
 
 deps-docker-py: pmbp-install
-	apt-get install -y mercurial
 	pip install --upgrade pip
 
 git-submodules:
@@ -82,7 +81,10 @@ create-commit-for-heroku:
 	git commit -m "for heroku"
 
 create-commit-for-heroku-py:
+	apt-get install -y mercurial
+	hg clone https://bitbucket.org/ms2ger/anolis
 	cat config/python/requirements.*.txt > requirements.txt.py
+	echo "/app/anolis" >> requirements.txt.py
 	cp heroku.yml.py heroku.yml
 	git add requirements.txt.py heroku.yml
 	git rm -fr Procfile local
