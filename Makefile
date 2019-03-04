@@ -83,7 +83,7 @@ create-commit-for-heroku-py:
 	cat config/python/requirements.*.txt > requirements.txt.py
 	cp heroku.yml.py heroku.yml
 	git add requirements.txt.py heroku.yml
-	git rm Procfile
+	git rm -f Procfile local
 	git commit -m "for heroku2"
 
 ## ------ Tests ------
