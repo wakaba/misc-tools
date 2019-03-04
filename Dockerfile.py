@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM python:2.7.14
 
 ADD Makefile /app/
 ADD requirements.txt.py /app/requirements.txt
