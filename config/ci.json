@@ -17,12 +17,8 @@
       "make create-commit-for-heroku",
       "git push git@heroku.com:misc-tools.git +`git rev-parse HEAD`:refs/heads/master",
 
-      "cat config/python/requirements.*.txt > requirements.txt",
-      "cp Procfile.py Procfile",
-      "git add requirements.txt Procfile",
-      "git add -f local/perl-5.*/pm",
-      "git commit -m heroku",
-      "# git push git@heroku.com:misc-py.git +`git rev-parse HEAD`:refs/heads/master"
+      "make create-commit-for-heroku-py",
+      "git push git@heroku.com:misc-py.git +`git rev-parse HEAD`:refs/heads/master"
     ]
   }
 }

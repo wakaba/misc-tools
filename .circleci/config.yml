@@ -72,32 +72,12 @@
             },
             {
                "deploy" : {
-                  "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == 'master' ]; then\u000Atrue\u000Acat config/python/requirements.*.txt > requirements.txt\u000Afi"
+                  "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == 'master' ]; then\u000Atrue\u000Amake create-commit-for-heroku-py\u000Afi"
                }
             },
             {
                "deploy" : {
-                  "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == 'master' ]; then\u000Atrue\u000Acp Procfile.py Procfile\u000Afi"
-               }
-            },
-            {
-               "deploy" : {
-                  "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == 'master' ]; then\u000Atrue\u000Agit add requirements.txt Procfile\u000Afi"
-               }
-            },
-            {
-               "deploy" : {
-                  "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == 'master' ]; then\u000Atrue\u000Agit add -f local/perl-5.*/pm\u000Afi"
-               }
-            },
-            {
-               "deploy" : {
-                  "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == 'master' ]; then\u000Atrue\u000Agit commit -m heroku\u000Afi"
-               }
-            },
-            {
-               "deploy" : {
-                  "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == 'master' ]; then\u000Atrue\u000A# git push git@heroku.com:misc-py.git \u002B`git rev-parse HEAD`:refs/heads/master\u000Afi"
+                  "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == 'master' ]; then\u000Atrue\u000Agit push git@heroku.com:misc-py.git \u002B`git rev-parse HEAD`:refs/heads/master\u000Afi"
                }
             },
             {

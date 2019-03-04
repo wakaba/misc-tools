@@ -77,6 +77,13 @@ create-commit-for-heroku:
 	git add -f modules/*/* local/harusame local/webhacc-cli
 	git commit -m "for heroku"
 
+create-commit-for-heroku-py:
+	cat config/python/requirements.*.txt > requirements.txt
+	cp Procfile.py Procfile
+	git add requirements.txt Procfile
+	git add -f local/perl-5.*/pm
+	git commit -m "for heroku2"
+
 ## ------ Tests ------
 
 PROVE = ./prove
