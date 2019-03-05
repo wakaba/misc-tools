@@ -16,6 +16,17 @@
             },
             {
                "run" : {
+                  "command" : "docker info"
+               }
+            },
+            {
+               "run" : {
+                  "background" : true,
+                  "command" : "docker pull python:2.7.10"
+               }
+            },
+            {
+               "run" : {
                   "command" : "make test-deps"
                }
             },
@@ -78,6 +89,21 @@
             {
                "deploy" : {
                   "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == 'master' ]; then\u000Atrue\u000Agit push git@heroku.com:misc-py.git \u002B`git rev-parse HEAD`:refs/heads/master\u000Afi"
+               }
+            },
+            {
+               "deploy" : {
+                  "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == 'master' ]; then\u000Atrue\u000Adocker build -t wakaba/misc-py:$CIRCLE_SHA1 -f Dockerfile.py .\u000Afi"
+               }
+            },
+            {
+               "deploy" : {
+                  "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == 'master' ]; then\u000Atrue\u000Adocker login -u $DOCKER_USER -p $DOCKER_PASS\u000Afi"
+               }
+            },
+            {
+               "deploy" : {
+                  "command" : "if [ \u0022${CIRCLE_BRANCH}\u0022 == 'master' ]; then\u000Atrue\u000Adocker push wakaba/misc-py:$CIRCLE_SHA1\u000Afi"
                }
             },
             {

@@ -3,6 +3,9 @@
     "pmbp": 1,
     "merger": 1,
     "gaa": 1,
+    "required_docker_images": [
+      "python:2.7.10"
+    ],
     "tests": [
       {"./plackup -p 5114 -t Twiggy::Prefork bin/server.psgi":
          {"background": true}},
@@ -18,7 +21,11 @@
       "git push git@heroku.com:misc-tools.git +`git rev-parse HEAD`:refs/heads/master",
 
       "make create-commit-for-heroku-py",
-      "git push git@heroku.com:misc-py.git +`git rev-parse HEAD`:refs/heads/master"
+      "git push git@heroku.com:misc-py.git +`git rev-parse HEAD`:refs/heads/master",
+
+      "docker build -t wakaba/misc-py:$CIRCLE_SHA1 -f Dockerfile.py .",
+      "docker login -u $DOCKER_USER -p $DOCKER_PASS",
+      "docker push wakaba/misc-py:$CIRCLE_SHA1"
     ]
   }
 }
