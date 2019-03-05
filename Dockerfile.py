@@ -1,4 +1,4 @@
-FROM python:2.7.10
+FROM python:2.7.6
 
 ADD Makefile /app/
 ADD anolis /app/anolis
