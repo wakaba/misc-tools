@@ -25,7 +25,7 @@
 
       "docker build -t wakaba/misc-py:$CIRCLE_SHA1 -f Dockerfile.py .",
       "docker login -u $DOCKER_USER -p $DOCKER_PASS",
-      "docker push wakaba/misc-py:$CIRCLE_SHA1"
+      "# docker push wakaba/misc-py:$CIRCLE_SHA1"
     ]
   }
 }
