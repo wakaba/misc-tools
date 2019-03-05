@@ -1,4 +1,5 @@
 lxml
 cssselect
-html5lib
+#html5lib
+git+https://github.com/html5lib/html5lib-python@7bbde541e08ca82c07af5ac7e5f64525f1793814
 #hg+http://bitbucket.org/ms2ger/anolis
