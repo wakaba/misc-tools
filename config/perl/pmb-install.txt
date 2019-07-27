@@ -1,4 +1,4 @@
-AnyEvent~7.16
+AnyEvent::Util
 Carp~1.50
 Exporter::Lite~0.08
 File::Temp~0.2309
