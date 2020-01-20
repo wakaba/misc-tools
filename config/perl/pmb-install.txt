@@ -3,7 +3,7 @@ Carp~1.50
 Exporter::Lite~0.08
 File::Temp~0.2309
 Getopt::Long~2.51
-IO::Handle~1.39
+IO::Handle~1.42
 MIME::Base64~3.15
 MRO::Compat~0.13
 Module::Runtime~0.016
