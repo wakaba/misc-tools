@@ -1,4 +1,4 @@
-AnyEvent~7.17
+AnyEvent::Util
 Carp~1.50
 Exporter::Lite~0.08
 File::Temp~0.2309
@@ -16,6 +16,6 @@ Scalar::Util~1.53
 Test::Class~0.50
 Test::More~1.302171
 Time::HiRes~1.9760
-Time::Local~1.28
+Time::Local~1.30
 Try::Tiny~0.30
 parent~0.237
