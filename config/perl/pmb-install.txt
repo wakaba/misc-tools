@@ -1,9 +1,9 @@
-AnyEvent~7.17
+AnyEvent::Util
 Carp~1.50
 Exporter::Lite~0.08
 File::Temp~0.2311
 Getopt::Long~2.52
-IO::Handle~1.45
+IO::Handle~1.48
 MIME::Base64~3.16
 MRO::Compat~0.13
 Module::Runtime~0.016
