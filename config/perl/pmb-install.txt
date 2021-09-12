@@ -14,7 +14,7 @@ Pod::Simple~3.43
 Pod::Text~4.14
 Pod::Usage~2.01
 Proc::Wait3~0.05
-Scalar::Util~1.57
+Scalar::Util~1.59
 Test::Class~0.52
 Test::More~1.302186
 Time::HiRes~1.9764
