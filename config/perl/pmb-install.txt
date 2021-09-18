@@ -1,4 +1,4 @@
-AnyEvent~7.17
+AnyEvent::Util
 Carp~1.50
 Exporter::Lite~0.08
 File::Temp~0.2311
@@ -16,7 +16,7 @@ Pod::Usage~2.01
 Proc::Wait3~0.05
 Scalar::Util~1.59
 Test::Class~0.52
-Test::More~1.302186
+Test::More~1.302187
 Time::HiRes~1.9764
 Time::Local~1.30
 Try::Tiny~0.30
