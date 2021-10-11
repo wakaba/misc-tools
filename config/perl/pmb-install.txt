@@ -13,7 +13,7 @@ Path::Tiny~0.118
 Pod::Simple~3.43
 Pod::Usage~2.01
 Proc::Wait3~0.05
-Scalar::Util~1.59
+Scalar::Util~1.60
 Test::Class~0.52
 Test::More~1.302188
 Time::HiRes~1.9764
