@@ -1,4 +1,4 @@
-AnyEvent::Util
+AnyEvent~7.17
 Carp~1.50
 Exporter::Lite~0.09
 File::Temp~0.2311
@@ -9,7 +9,7 @@ MRO::Compat~0.15
 Module::Build~0.4231
 Module::Runtime~0.016
 Path::Class~0.37
-Path::Tiny~0.130
+Path::Tiny~0.142
 Pod::Simple~3.43
 Pod::Usage~2.03
 Proc::Wait3~0.05
