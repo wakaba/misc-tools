@@ -1,4 +1,4 @@
-AnyEvent::Util
+AnyEvent~7.17
 Carp~1.50
 Exporter::Lite~0.09
 File::Temp~0.2311
@@ -6,7 +6,7 @@ Getopt::Long~2.54
 IO::Handle~1.51
 MIME::Base64~3.16
 MRO::Compat~0.15
-Module::Build~0.4232
+Module::Build~0.4234
 Module::Runtime~0.016
 Path::Class~0.37
 Path::Tiny~0.144
@@ -15,7 +15,7 @@ Pod::Usage~2.03
 Proc::Wait3~0.05
 Scalar::Util~1.63
 Test::Class~0.52
-Test::More~1.302194
+Test::More~1.302195
 Time::HiRes~1.9764
 Time::Local~1.30
 Try::Tiny~0.31
