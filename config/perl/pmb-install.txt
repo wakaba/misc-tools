@@ -17,6 +17,6 @@ Scalar::Util~1.63
 Test::Class~0.52
 Test::More~1.302195
 Time::HiRes~1.9764
-Time::Local~1.30
+Time::Local~1.35
 Try::Tiny~0.31
 parent~0.241
