@@ -10,7 +10,7 @@ Module::Build~0.4234
 Module::Runtime~0.016
 Path::Class~0.37
 Path::Tiny~0.144
-Pod::Simple~3.43
+Pod::Simple~3.45
 Pod::Usage~2.03
 Proc::Wait3~0.05
 Scalar::Util~1.63
