@@ -16,8 +16,8 @@ Proc::Wait3~0.05
 Scalar::Util~1.65
 Term::Table~0.022
 Test::Class~0.52
-Test::More~1.302200
+Test::More~1.302201
 Time::HiRes~1.9764
 Time::Local~1.35
 Try::Tiny~0.31
-parent~0.241
+parent~0.242
